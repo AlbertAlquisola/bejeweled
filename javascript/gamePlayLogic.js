@@ -57,7 +57,7 @@ app.GamePlayLogic = (function(){
   function checkForTriples() {
     var allTriples = app.GameTriplesLogic.grabAllTriples()
 
-    //edge case: no more triples
+    //base case: no more triples
     if (allTriples.length === 0) return;
 
     makeTriplesDisappear(allTriples)
