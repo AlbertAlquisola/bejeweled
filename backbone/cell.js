@@ -1,4 +1,6 @@
 app.Models.Cell = Backbone.Model.extend({
-  this.attributes.row = row;
-  this.attributes.column = column;
+  initialize: function() {
+    this.attributes.row = row
+    this.attributes.column = column
+  }
 })

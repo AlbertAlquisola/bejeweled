@@ -1,5 +1,5 @@
 var app = {
   Models: {},
   Views: {},
-  Collections {}
+  Collections: {}
 }
