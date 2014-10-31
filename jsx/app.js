@@ -6,11 +6,11 @@ app.Views.App = React.createClass({
   render: function() {
     return (
       <div>
-        <app.Views.BejeweledBoard />
+        <app.Views.BejeweledBoard board={this.props.collection}/>
       </div>
     )
   }
 })
 
-React.renderComponent(<app.Views.App />, document.getElementById('bejeweled'))
+React.renderComponent(<app.Views.App collection={app.GameCreator.Board} />, document.getElementById('bejeweled'))
 

@@ -2,8 +2,16 @@
 
 app.Views.BejeweledBoard = React.createClass({displayName: 'BejeweledBoard',
   render: function() {
-    React.DOM.div(null, 
-      app.Views.Cell({test: this.props.test})
+    var board;
+
+    if (this.props.board) {
+      board = this.props.board.map(function(cell) {
+        return app.Views.Cell({value: cell.value})
+      })
+    }
+
+    return (
+      React.DOM.div(null, board)
     )
   }
 })

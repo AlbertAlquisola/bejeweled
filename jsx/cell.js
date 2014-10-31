@@ -2,8 +2,10 @@
 
 app.Views.Cell = React.createClass({
   render: function() {
-    <div>
-      {this.props.test}
-    </div>
+    return (
+      <div className="cell">
+        {this.props.value}
+      </div>
+    )
   }
 })

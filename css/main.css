@@ -1,0 +1,21 @@
+.header {
+  width:80%;
+  margin:0 auto;
+  text-align:center;
+}
+
+#new-game {
+  margin:10px;
+  border:1px solid black;
+}
+
+.cell {
+  display:inline-block;
+  border:1px solid black;
+  margin:0;
+  width:12%;
+  height:125px;
+  text-align:center;
+  vertical-align: middle;
+  padding-top:30px;
+}
