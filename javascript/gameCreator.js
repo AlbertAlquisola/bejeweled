@@ -19,17 +19,21 @@ app.GameCreator = (function(){
     return Math.floor(position % 8)
   }
 
+  function createCell(row, column,position) {
+    var cell = new app.Models.Cell({
+      value: getRandomValue(),
+      position:position,
+      row: row,
+      column: column
+    })
+    return cell
+  }
+
   function createBoardCells() {
     for (var index = 0; index < 64; index++) {
       var row = calculateRow(index);
       var column = calculateColumn(index);
-
-      var cell = new app.Models.Cell({
-        value: getRandomValue(),
-        position:index,
-        row: row,
-        column: column
-      })
+      var cell = createCell(row,column,index);
 
       app.GameCreator.Board.add(cell)
     }
