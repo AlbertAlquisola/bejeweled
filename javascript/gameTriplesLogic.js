@@ -1,4 +1,4 @@
-app.GameLogic = (function(){
+app.GameTriplesLogic = (function(){
 
   (function createTransposedBoard() {
     app.GameCreator.TransposedBoard = new app.Collections.Board
