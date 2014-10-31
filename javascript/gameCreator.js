@@ -39,12 +39,24 @@ app.GameCreator = (function(){
     }
   }
 
+  function startNewGame() {
+    var board = app.GameCreator.Board;
+
+    for (var index = 0; index < board.length; index++) {
+      var currentCell = board.at(index);
+      var newValue = getRandomValue();
+      currentCell.set({value: newValue})
+    }
+    // app.GamePlayLogic.checkForTriples();
+  }
+
   function startInitialGame() {
     createBoard(createBoardCells)
   }
 
   return {
-    startInitialGame : startInitialGame
+    startInitialGame : startInitialGame,
+    startNewGame : startNewGame
   }
 
 })()
