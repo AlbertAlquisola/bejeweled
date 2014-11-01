@@ -47,7 +47,7 @@ app.GameCreator = (function(){
       var newValue = getRandomValue();
       currentCell.set({value: newValue})
     }
-    // app.GamePlayLogic.checkForTriples();
+    app.GamePlayLogic.initiateMove();
   }
 
   function startInitialGame() {
