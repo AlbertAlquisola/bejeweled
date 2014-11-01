@@ -54,7 +54,7 @@ app.GamePlayLogic = (function(){
     }
   }
 
-  function checkForTriples() {
+  function initiateMove() {
     var allTriples = app.GameTriplesLogic.grabAllTriples()
 
     //base case: no more triples
@@ -62,11 +62,9 @@ app.GamePlayLogic = (function(){
 
     makeTriplesDisappear(allTriples)
     makeValuesDrop()
-    checkForTriples()
+    initiateMove()
   }
 
-  return {
-    checkForTriples: checkForTriples
-  }
+  return {initiateMove: initiateMove}
 
 })()
