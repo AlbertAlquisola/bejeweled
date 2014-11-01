@@ -4,9 +4,7 @@ window.onload = function() {
   var board = document.getElementById('bejeweled');
   var previousCell;
 
-  //semicolon is important here: huge bug if it's absent.  javascript is interpreting it as invoking //another function because of the iffy below it.  it's reading it like this:
-  //app.GamePlayLogic.initiateMove()()
-  app.GamePlayLogic.initiateMove();
+  app.GamePlayLogic.initiateMove()
 
   function changeCellsToWhite() {
     var cells = document.getElementsByClassName('cell');
