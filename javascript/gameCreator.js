@@ -1,7 +1,7 @@
 app.GameCreator = (function(){
 
   function getRandomValue() {
-    var possibleValues = ['diamond', 'gem', 'ruby', 'sapphire', 'emerald'];
+    var possibleValues = ['#55E3ED', '#5571ED', '#C555ED', '#F06E8F', '#6EF0B3'];
     var randomNumber = Math.floor(Math.random() * 5);
     return possibleValues[randomNumber]
   }

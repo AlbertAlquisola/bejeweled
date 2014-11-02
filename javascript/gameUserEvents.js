@@ -6,17 +6,19 @@ window.onload = function() {
 
   app.GamePlayLogic.initiateMove()
 
-  function changeCellsToWhite() {
+  function highlightCurrentCell(event) {
+    event.target.style.border = '.15em solid black';
+    event.target.style.margin = '0';
+  }
+
+  function unhighlightCurrentCells(event) {
     var cells = document.getElementsByClassName('cell');
 
     for (var index = 0; index < cells.length; index++) {
       var currentCell = cells[index];
-      currentCell.style.backgroundColor = 'white';
+      currentCell.style.border = 'none';
+      currentCell.style.margin = '.15em  ';
     }
-  }
-
-  function makeCurrentCellBlue(event) {
-    event.target.style.backgroundColor = 'blue';
   }
 
   function getCellAbove(cell){
@@ -93,20 +95,20 @@ window.onload = function() {
         app.GamePlayLogic.initiateMove()
         cell = undefined;
         previousCell = undefined;
-        changeCellsToWhite();
+        unhighlightCurrentCells();
       }
       else {
         swapValues(cell)
         alert("sorry, that move won't create any triples. Please try again.")
         cell = undefined;
         previousCell = undefined;
-        changeCellsToWhite();
+        unhighlightCurrentCells();
       }
     }
     else {
       previousCell = cell
-      changeCellsToWhite();
-      makeCurrentCellBlue(event);
+      unhighlightCurrentCells();
+      highlightCurrentCell(event);
     }
   })
 }

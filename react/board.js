@@ -6,7 +6,7 @@ app.Views.BejeweledBoard = React.createClass({displayName: 'BejeweledBoard',
 
     if (this.props.board) {
       board = this.props.board.map(function(cell) {
-        return app.Views.Cell({value: cell.value, id: cell.position})
+        return app.Views.Cell({cell: cell})
       })
     }
 
