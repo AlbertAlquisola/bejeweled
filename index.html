@@ -2,18 +2,21 @@
 <head>
   <title>bejeweled</title>
   <link rel="stylesheet" text="type/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:300,500,600,italic">
   <script src="http://fb.me/react-0.11.2.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
   <script src="./lib/backbone-react-component-min.js"></script>
 </head>
 <body>
+  <div class="app-container">
+    <div class="header">
+      <button id="new-game">Start new Game</button>
+      <h1>Bejeweled!</h1>
+    </div>
 
-  <div class="header">
-    <button id="new-game">Start new Game</button>
-  </div>
-
-  <div id ="bejeweled">
+    <div id ="bejeweled">
+    </div>
   </div>
 
   <script src="javascript/app.js"></script>
