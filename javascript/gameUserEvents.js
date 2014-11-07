@@ -1,10 +1,5 @@
 window.onload = function() {
 
-  // $('#bejeweled').click(function(event){
-  //   var distanceNeeded = event.target.offsetTop - 438;
-  //     $(event.target).animate({bottom: distanceNeeded})
-  // })
-
   var newGameButton = document.getElementById('new-game');
   var board = document.getElementById('bejeweled');
   var previousCell;

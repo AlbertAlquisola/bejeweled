@@ -46,7 +46,7 @@ app.GamePlayLogic = (function(){
   }
 
   function grabCellAbove(cell) {
-    var positionOfCellAbove = cell.attributes.position - 8
+    var positionOfCellAbove = cell.attributes.position - 8;
     return app.GameCreator.Board.at(positionOfCellAbove)
   }
 

@@ -19,9 +19,12 @@ app.GameCreator = (function(){
     return Math.floor(position % 8)
   }
 
+  function calculateCellValue(position) {
+    return position < 8 ? undefined : getRandomValue()
+  }
+
   function createCell(row, column, position) {
-    var value;
-    position < 8 ? value = undefined : value = getRandomValue()
+    var value = calculateCellValue(position)
     var cell = new app.Models.Cell({
       value: value,
       position:position,
