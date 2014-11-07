@@ -7,7 +7,7 @@ app.GameTriplesLogic = (function(){
     while (index < 8) {
       var currentPosition = index;
 
-      while(currentPosition < 64) {
+      while(currentPosition < 72) {
         var currentCell = app.GameCreator.Board.at(currentPosition);
         app.GameCreator.TransposedBoard.add(currentCell)
         currentPosition += 8;
@@ -28,6 +28,13 @@ app.GameTriplesLogic = (function(){
 
   function thereIsATripleOrMore(counter){
     return counter >= 3
+  }
+
+  function notInFirstRow(cellOne, cellTwo) {
+    if (cellOne.attributes.row === 0 || cellTwo.attributes.row === 0) {
+      return false
+    }
+    return true
   }
 
   function grabAllVerticalTriples() {
@@ -69,10 +76,10 @@ app.GameTriplesLogic = (function(){
     var board = app.GameCreator.Board;
     var horizontalTriples = [];
     var counter = 1;
-    var startingPosition = 0;
-    var endingPosition = 0;
+    var startingPosition = 8;
+    var endingPosition = 8;
 
-    for (var index = 0; index < board.length - 1; index++) {
+    for (var index = 8; index < board.length - 1; index++) {
       var currentCell = board.at(index);
       var nextCell = board.at(index + 1);
 

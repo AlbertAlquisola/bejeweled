@@ -19,9 +19,11 @@ app.GameCreator = (function(){
     return Math.floor(position % 8)
   }
 
-  function createCell(row, column,position) {
+  function createCell(row, column, position) {
+    var value;
+    position < 8 ? value = undefined : value = getRandomValue()
     var cell = new app.Models.Cell({
-      value: getRandomValue(),
+      value: value,
       position:position,
       row: row,
       column: column
@@ -30,7 +32,7 @@ app.GameCreator = (function(){
   }
 
   function createBoardCells() {
-    for (var index = 0; index < 64; index++) {
+    for (var index = 0; index < 72; index++) {
       var row = calculateRow(index);
       var column = calculateColumn(index);
       var cell = createCell(row,column,index);
