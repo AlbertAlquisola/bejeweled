@@ -2,9 +2,19 @@ app.GamePlayLogic = (function(){
 
   var numberOfTriples;
 
-  (function listenForPermissionToDropGems() {
-    $(document).on('permissionGranted', makeGemsDrop)
+  (function listenForPermissionToDropCells() {
+    $(document).on('permissionGranted', makeCellsDrop)
   })()
+
+  function createCell(row, column, position) {
+    var cell = new app.Models.Cell({
+      value: getRandomValue(),
+      position:position,
+      row: row,
+      column: column
+    })
+    return cell
+  }
 
   function getRandomValue() {
     var possibleValues = ['#55E3ED', '#5571ED', '#C555ED', '#F06E8F', '#6EF0B3'];
@@ -17,7 +27,7 @@ app.GamePlayLogic = (function(){
   }
 
   function checkIfAllTriplesEmpty() {
-   if (numberOfTriples <= 0) allowGemsToDrop()
+    if (numberOfTriples <= 0) allowCellsToDrop()
   }
 
   function highlightCell(cell) {
@@ -25,23 +35,23 @@ app.GamePlayLogic = (function(){
     DOMElement.css({border: ".15em solid black", margin: "0em"})
   }
 
-  function makeCellEmpty(cell) {
+  function makeCellInvisible(cell) {
     cell.set({value : undefined})
   }
 
   function initiateCellChange(cell) {
-    makeCellEmpty(cell)
+    makeCellInvisible(cell)
     decrementNumberOfTriples()
     checkIfAllTriplesEmpty()
   }
 
-  function allowGemsToDrop() {
+  function allowCellsToDrop() {
     $(document).trigger('permissionGranted')
   }
 
   function fadeCellOut(cell) {
     var DOMElement = $('#' + cell.attributes.position);
-    var settings = {duration: 2000, done: function() { initiateCellChange(cell) }}
+    var settings = {duration: 1600, done: function() { initiateCellChange(cell) }}
       DOMElement.animate({opacity : 0}, settings)
   }
 
@@ -50,21 +60,21 @@ app.GamePlayLogic = (function(){
     return app.GameCreator.Board.at(positionOfCellAbove)
   }
 
-  function fetchValueAbove(cell) {
+  function fetchCellToFall(cell) {
     var rowAbove = cell.attributes.row - 1;
     if (rowAbove >= 0) var cellAbove = grabCellAbove(cell);
 
     //base case
-    if (!cellAbove) return getRandomValue();
+    if (!cellAbove) {
+      var newRandomCell = createCell(0,0,cell.attributes.position)
+      return newRandomCell
+      // cell.set({value:"black", opacity:100})
+      // return cell
+    }
 
-    if (cellAbove.attributes.value) {
-      var valueToMoveDown = cellAbove.attributes.value;
-      makeCellEmpty(cellAbove)
-      return valueToMoveDown
-    }
-    else {
-      return fetchValueAbove(cellAbove)
-    }
+    if (cellAbove.attributes.value) return cellAbove;
+
+    return fetchCellToFall(cellAbove)
   }
 
   function makeTriplesDisappear(allTriples) {
@@ -77,20 +87,47 @@ app.GamePlayLogic = (function(){
     }
   }
 
-  function makeGemsDrop() {
+  function dropCell(cellToDrop, currentCell, distance) {
+    var settings = {duration: 400, done: function() {swapCells(cellToDrop, currentCell, distance)}};
+    var DOMElement = document.getElementById(cellToDrop.attributes.position);
+    $(DOMElement).animate({bottom: distance}, settings)
+  }
+
+  function moveInvisibleCellBackUp(cell) {
+    var DOMElement = $('#' + cell.attributes.position);
+    $(DOMElement).animate({top: 0})
+  }
+
+  function makeCellVisible(cell, newValue) {
+    var DOMElement = $('#' + cell.attributes.position);
+    $(DOMElement).css({opacity:100, border:"none", margin: ".15em"})
+    cell.set({value: newValue})
+  }
+
+  function swapCells(cellThatDropped, currentCell, distanceNeeded) {
+    var newValue = cellThatDropped.attributes.value;
+    makeCellVisible(currentCell, newValue)
+    makeCellInvisible(cellThatDropped)
+    moveInvisibleCellBackUp(cellThatDropped)
+    makeCellsDrop()
+  }
+
+  function makeCellsDrop() {
     var board = app.GameCreator.Board;
 
     for (var index = board.length - 1; index >= 0; index--) {
       var currentCell = board.at(index);
-      var DOMElement = $('#' + currentCell.attributes.position);
+      var currentDOMElement = document.getElementById(currentCell.attributes.position);
 
-      if(!currentCell.attributes.value) {
-        var value = fetchValueAbove(currentCell)
-        DOMElement.css({opacity:100, border:"none",margin: ".15em"})
-        currentCell.set({value : value})
+      if (!currentCell.attributes.value) {
+        var cellToDrop = fetchCellToFall(currentCell);
+        var newCellDOMElement = document.getElementById(cellToDrop.attributes.position);
+        var distanceNeeded = newCellDOMElement.offsetTop - currentDOMElement.offsetTop;
+        dropCell(cellToDrop, currentCell, distanceNeeded)
+        return;
       }
     }
-    initiateMove()
+    initiateMove();
   }
 
   function initiateMove() {
