@@ -66,10 +66,10 @@ app.GamePlayLogic = (function(){
 
     //base case
     if (!cellAbove) {
-      var newRandomCell = createCell(0,0,cell.attributes.position)
-      return newRandomCell
-      // cell.set({value:"black", opacity:100})
-      // return cell
+      // var newRandomCell = createCell(0,0,cell.attributes.position)
+      // return newRandomCell
+      cell.set({value:getRandomValue()})
+      return cell
     }
 
     if (cellAbove.attributes.value) return cellAbove;
@@ -107,7 +107,7 @@ app.GamePlayLogic = (function(){
   function swapCells(cellThatDropped, currentCell, distanceNeeded) {
     var newValue = cellThatDropped.attributes.value;
     makeCellVisible(currentCell, newValue)
-    makeCellInvisible(cellThatDropped)
+    if (currentCell.attributes.position > 7) makeCellInvisible(cellThatDropped)
     moveInvisibleCellBackUp(cellThatDropped)
     makeCellsDrop()
   }
