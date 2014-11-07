@@ -33,6 +33,7 @@ html, body {
 }
 
 .cell {
+  position:relative;
   display:inline-block;
   margin:.15em;
   width:10.5%;
